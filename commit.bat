@@ -2,7 +2,7 @@
 setlocal
 
 if "%~1"=="" (
-    set /p MESSAGE="请输入提交消息: "
+    set /p MESSAGE="Please enter commit message: "
 ) else (
     set MESSAGE=%~1
 )
