@@ -6,7 +6,9 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "commit": "commit.bat",
+    "commit:ps1": "powershell -ExecutionPolicy Bypass -File commit.ps1"
   },
   "hexo": {
     "version": "8.1.1"
