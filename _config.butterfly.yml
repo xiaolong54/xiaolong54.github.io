@@ -1,0 +1,193 @@
+# Main menu navigation (menu)
+menu:
+  首页: / || fas fa-home
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  归档: /archives/ || fas fa-archive
+  关于: /about/ || fas fa-heart
+
+# Site info
+site:
+  name: Shiloh's Blog
+  author: Shiloh
+
+# Code Blocks (代码块样式)
+highlight_theme: mac
+
+# copy settings
+copy:
+  enable: true
+  copyright:
+    enable: true
+    limit_count: 50
+
+# social settings
+social:
+  fab fa-github: https://github.com/xiaolong54 || Github
+
+# Favicon
+favicon: /img/favicon.png
+
+# Footer Settings
+footer:
+  owner:
+    enable: true
+    since: 2025
+  custom_text: <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank">Butterfly</a>
+
+# Sidebar Settings
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true
+  position: right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: 热爱技术，热爱生活
+    button:
+      enable: true
+      icon: fab fa-github
+      text: 关注我
+      link: https://github.com/xiaolong54
+  card_announcement:
+    enable: true
+    content: 欢迎来到我的博客！
+  card_recent_post:
+    enable: true
+    limit: 5
+  card_categories:
+    enable: true
+    limit: 8
+  card_tags:
+    enable: true
+    limit: 40
+  card_archives:
+    enable: true
+    type: monthly
+    format: MMMM YYYY
+    order: -1
+    limit: 8
+
+# Home page article settings
+index_post_content:
+  method: 3
+  length: 500
+
+# post page settings
+post:
+  meta:
+    date_type: both
+    date_format: relative
+    categories: true
+    tags: true
+  copyright:
+    enable: true
+    license: CC BY-NC-SA 4.0
+    license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+  share:
+    enable: true
+  related_post:
+    enable: true
+    limit: 6
+
+# SEO settings
+seo:
+  canonical: true
+  og:
+    enable: true
+
+# Local search
+local_search:
+  enable: true
+  preload: false
+  CDN:
+
+# Word count
+wordcount:
+  enable: true
+
+# Read mode
+readmode: true
+
+# Dark mode
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: 1
+
+# Canvas nest style
+canvas_nest:
+  enable: true
+  color: '0,0,255'
+  opacity: 0.7
+  zIndex: -1
+  count: 99
+
+# Loading style
+preloader:
+  enable: true
+
+# Photo effect
+photofigcaption: true
+
+# Snackbar: Toast notification
+snackbar:
+  enable: true
+  position: bottom-left
+  bg_light: '#49b1f5'
+  bg_dark: '#1f1f1f'
+
+# Translate
+translate:
+  enable: true
+  defaultEncoding: 2
+  translateEncoding: 1
+
+# Comments
+comments:
+  use:
+  lazyload: false
+  count: false
+  card_post_count: false
+
+# Analytics
+baidu_analytics:
+google_analytics:
+
+# CDN
+CDN:
+  first_click: true
+  second_click: false
+
+# pjax
+pjax:
+  enable: true
+  exclude:
+    - /music/
+    - /no-pjax/
+
+# Inject
+inject:
+  head:
+  bottom:
+
+# Theme color
+theme_color:
+  enable: true
+  main: "#49B1F5"
+  paginator: "#00c4b6"
+  button_hover: "#FF7242"
+  text_selection: "#00c4b6"
+  link_color: "#99a9bf"
+  meta_color: "#858585"
+  hr_color: "#A4D8FA"
+  code_foreground: "#F47466"
+  code_background: "rgba(27, 31, 35, .05)"
+  toc_color: "#00c4b6"
+  blockquote_padding_color: "#49b1f5"
+  blockquote_background_color: "#49b1f5"

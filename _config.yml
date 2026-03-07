@@ -1,0 +1,143 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: Shiloh's Blog
+subtitle: '技术与生活的记录'
+description: '分享技术心得与生活感悟'
+keywords: 博客,技术,编程,前端,后端
+author: Shiloh
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://xiaolong54.github.io
+permalink: posts/:abbrlink/
+permalink_defaults:
+pretty_urls:
+  trailing_index: false
+  trailing_html: false
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# Home page setting
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Metadata elements
+meta_generator: true
+
+# Date / Time format
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'
+
+# Pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+include:
+exclude:
+ignore:
+
+# Extensions
+theme: butterfly
+
+# Deployment
+deploy:
+  type: git
+  repo: https://github.com/xiaolong54/xiaolong54.github.io.git
+  branch: main
+
+# abbrlink config
+abbrlink:
+  alg: crc32
+  rep: hex
+  drafts: false
+  auto_category:
+    enable: true
+    depth:
+    over_write: false
+  auto_title: false
+  auto_date: false
+  force: false
+
+# sitemap
+sitemap:
+  path: sitemap.xml
+  tags: true
+  categories: true
+
+# feed
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+  template:
+
+# search
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
+
+# Admin
+admin:
+  username: shiloh
+  password_hash: $2a$10$Xk9GOgqGJh0Z0Z0Z0Z0Z0OZ0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0
+  secret: hexoadminsecretkey123
+  deployCommand: './deploy.sh'
+  port: 4000
+  expire: 60*1
