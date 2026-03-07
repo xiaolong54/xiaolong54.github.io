@@ -4,7 +4,7 @@ param(
 )
 
 if ([string]::IsNullOrWhiteSpace($Message)) {
-    $Message = Read-Host "请输入提交消息"
+    $Message = Read-Host "Please enter commit message"
 }
 
 git add .
