@@ -313,9 +313,15 @@
       }
     });
 
+    // 索引是异步加载的。加载期间输入的词不能丢：先等索引就绪，再按当前输入补搜一次。
     input.addEventListener('input', function () {
-      if (!entries) return;
-      search(input.value);
+      if (entries) {
+        search(input.value);
+        return;
+      }
+      load().then(function () {
+        search(input.value);
+      });
     });
 
     results.addEventListener('click', function (event) {
