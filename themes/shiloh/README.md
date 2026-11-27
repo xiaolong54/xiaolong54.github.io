@@ -66,6 +66,22 @@ themes/shiloh/
 - **代码块是表格结构**（行号一格、代码一格）。要用 `table-layout: fixed` 并给行号格一个像素宽度，
   否则长行会把表格撑开。
 
+## 部署
+
+站点分两处：**源码在 `master`**，**生成结果在 `main`**（GitHub Pages 从这里取）。
+
+```bash
+git push origin master          # 推源码
+hexo clean && hexo generate && hexo deploy   # 生成并推到 main
+```
+
+两个已知的坑：
+
+- **仓库必须是公开的**。GitHub Pages 在 Free 计划下不支持私有仓库，私有仓库调用 Pages 接口会返回
+  `422 Your current plan does not support GitHub Pages for this repository.`，站点直接 404。
+- **推送偶发 TLS 握手失败**（`schannel: failed to receive handshake`）。这是网络问题，不是配置问题，
+  直接重试即可；`hexo deploy` 与 `git push` 是两条独立的连接，可能一个成功一个失败，两边都要看结果。
+
 ## 换回 Butterfly
 
 把博客根目录 `_config.yml` 里的 `theme: shiloh` 改成 `theme: butterfly`，重新生成即可。
