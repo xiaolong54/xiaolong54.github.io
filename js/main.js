@@ -307,10 +307,16 @@
       if ((event.ctrlKey || event.metaKey) && key === 'k') {
         event.preventDefault();
         open();
-      } else if (key === 'Escape' && dialog.open) {
-        // 原生 dialog 自己会处理 Esc，这里只是保险
+      } else if (event.key === 'Escape' && dialog.open) {
+        // 注意不能拿转成小写的 key 和 'Escape' 比，那样永远不成立
         close();
       }
+    });
+
+    // <dialog> 原生按 Esc 会发 cancel 事件，统一在这里收口，保证各浏览器表现一致
+    dialog.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      close();
     });
 
     // 索引是异步加载的。加载期间输入的词不能丢：先等索引就绪，再按当前输入补搜一次。
@@ -335,6 +341,12 @@
     });
 
     input.addEventListener('keydown', function (event) {
+      // <input type="search"> 默认会用 Esc 清空输入框，这里改成关掉弹窗
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+        return;
+      }
       if (!shown.length) return;
       if (event.key === 'ArrowDown') {
         event.preventDefault();
