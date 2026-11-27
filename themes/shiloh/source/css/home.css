@@ -190,7 +190,8 @@ html.js .hero .reveal {
 
 .post-row {
   display: grid;
-  grid-template-columns: 88px minmax(0, 1fr) auto;
+  /* 日期 / 标题与摘要 / 分类标签 / 箭头，四列；模板里正好是这四个元素 */
+  grid-template-columns: 88px minmax(0, 1fr) auto 18px;
   align-items: center;
   column-gap: 16px;
   margin-inline: -12px;
