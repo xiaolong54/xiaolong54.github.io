@@ -1,0 +1,30 @@
+<%
+// 归档：按年份分组的全部文章
+const groups = {};
+page.posts.forEach(function (post) {
+  const year = post.date.format('YYYY');
+  if (!groups[year]) groups[year] = [];
+  groups[year].push(post);
+});
+const years = Object.keys(groups).sort(function (a, b) { return b.localeCompare(a); });
+%>
+<section class="container section">
+  <div class="page-head reveal">
+    <div class="eyebrow">Archive</div>
+    <h1 class="h2 page-head__title">归档</h1>
+    <p class="lead page-head__desc">到目前为止，一共写了 <%= site.posts.length %> 篇文章。</p>
+  </div>
+
+  <% years.forEach(function (year) { %>
+  <section class="archive-group reveal">
+    <h2 class="archive-group__year"><%= year %> · <%= groups[year].length %> 篇</h2>
+    <div class="post-list">
+      <% groups[year].forEach(function (post) { %>
+        <%- partial('_partial/post-row', { post: post }) %>
+      <% }) %>
+    </div>
+  </section>
+  <% }) %>
+
+  <%- partial('_partial/pagination') %>
+</section>

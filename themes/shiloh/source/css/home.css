@@ -1,0 +1,371 @@
+/* ============================================================
+   home.css — 首屏、文章列表、分页、分类 / 标签云、归档
+   ============================================================ */
+
+/* ---------- 首屏 ---------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-height: calc(100svh - var(--nav-h));
+  max-height: 820px;
+  padding-block: 80px;
+}
+
+/* 背景整体：左半让位给标题，右半保持通透 */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 24%,
+    rgba(0, 0, 0, 0.7) 42%,
+    #000 58%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 24%,
+    rgba(0, 0, 0, 0.7) 42%,
+    #000 58%
+  );
+}
+
+/* 上下渐隐：顶部接导航，底部淡出到下一屏 */
+.hero__fade {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 12%,
+    #000 55%,
+    rgba(0, 0, 0, 0.85) 68%,
+    rgba(0, 0, 0, 0.55) 80%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 12%,
+    #000 55%,
+    rgba(0, 0, 0, 0.85) 68%,
+    rgba(0, 0, 0, 0.55) 80%,
+    transparent 100%
+  );
+}
+
+/* 雾面：三层柔和的径向渐变 */
+.hero__mist {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 58% 52% at 68% 38%, var(--mist-a), transparent 70%),
+    radial-gradient(ellipse 42% 40% at 42% 62%, var(--mist-b), transparent 72%),
+    radial-gradient(ellipse 34% 38% at 84% 70%, var(--mist-c), transparent 72%);
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 细颗粒噪点，压住渐变的塑料感；层级在背景之上、文字之下 */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.hero__title {
+  margin-top: 24px;
+}
+
+/* 每句话独占一行：只作用于标题的直接子元素，高亮词是嵌套在里面的 span，必须保持行内 */
+.hero__title > span {
+  display: block;
+}
+
+.hero__accent {
+  display: inline;
+  color: var(--accent);
+}
+
+.hero__desc {
+  margin-top: 28px;
+  max-width: 520px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-stat__value {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stat__label {
+  margin-top: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--fg-muted);
+}
+
+/* 首屏淡入：html.js 下才隐藏初始态，没有 JS 时内容直接可见 */
+html.js .hero .reveal {
+  transition:
+    opacity 600ms var(--ease-reveal),
+    transform 600ms var(--ease-reveal);
+}
+
+/* ---------- 区块标题 ---------- */
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.section-head .h2 {
+  margin-top: 12px;
+}
+
+.section-head__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 4px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--fg-secondary);
+  transition: color 150ms;
+}
+
+.section-head__more:hover {
+  color: var(--fg);
+}
+
+/* ---------- 文章列表行 ---------- */
+
+.post-list {
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.post-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 16px;
+  margin-inline: -12px;
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px;
+  transition: background-color 150ms;
+}
+
+.post-row:hover {
+  background: var(--surface-2);
+}
+
+.post-row__date {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-row__main {
+  min-width: 0;
+}
+
+.post-row__main > span {
+  display: block;
+}
+
+.post-row__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.post-row__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--fg-secondary);
+}
+
+.post-row__tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  font-size: 12.5px;
+  color: var(--fg-muted);
+}
+
+.post-row__arrow {
+  display: inline-flex;
+  color: var(--fg-dim);
+  transition:
+    transform 250ms,
+    color 150ms;
+}
+
+.post-row:hover .post-row__arrow {
+  transform: translateX(2px);
+  color: var(--fg);
+}
+
+/* ---------- 分页 ---------- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.pagination__page {
+  padding-inline: 12px;
+  font-size: 13.5px;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 归档 ---------- */
+
+.archive-group {
+  margin-top: 40px;
+}
+
+.archive-group__year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* ---------- 标签云 / 分类 ---------- */
+
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.cloud .tag {
+  height: 34px;
+  padding-inline: 16px;
+  font-size: 14px;
+}
+
+.category-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  transition:
+    border-color 150ms,
+    transform 250ms var(--ease-smooth-out);
+}
+
+.category-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.category-card__name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.category-card__count {
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 860px) {
+  .hero__canvas {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .post-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 6px;
+  }
+
+  .post-row__date {
+    grid-column: 1 / -1;
+  }
+
+  .post-row__title {
+    white-space: normal;
+  }
+
+  .post-row__tags {
+    display: none;
+  }
+}

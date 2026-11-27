@@ -1,0 +1,82 @@
+# ============================================================
+# Shiloh 主题配置
+#
+# 站点名称、作者、语言、RSS 等属于「站点配置」，在博客根目录的 _config.yml 里改。
+# 这里只放和外观有关的东西。
+# ============================================================
+
+# 顶部导航：顺序即显示顺序
+menu:
+  首页: /
+  分类: /categories/
+  标签: /tags/
+  归档: /archives/
+  关于: /about/
+
+# 品牌区（导航栏左侧、页脚、关于页）
+brand:
+  name: Shiloh
+  # 字标：青柠色方块里的一到两个字母
+  initials: SH
+  # 名字后面的小字
+  subtitle: Shiloh's Blog
+  # 一句话介绍（关于页、页脚）
+  description: 热爱技术，热爱生活
+
+# 首页首屏
+hero:
+  enable: true
+  # 标题上方的一行等宽小字
+  eyebrow: SHILOH — 技术与生活的记录
+  # 大标题，每个元素一行
+  headline:
+    - 热爱技术，
+    - 热爱生活。
+  # 标题里用青柠色高亮的词（必须是 headline 里的某一段）
+  accent: 技术
+  description: 分享技术心得与生活感悟
+  # 首屏星图：分类和标签会自动成为节点；数量不够时用下面这些补足
+  extra_stars:
+    - Hexo
+    - Markdown
+    - JavaScript
+    - Python
+    - C
+    - GitHub Pages
+  # 置信度不足时可以整块关掉星图，只留雾面
+  stars: true
+
+# 社交链接（导航栏右侧、关于页、页脚）
+social:
+  github: https://github.com/xiaolong54
+  # RSS 地址由 hexo-generator-feed 生成
+  rss: /atom.xml
+
+# 文章页
+post:
+  # 右侧目录（手机上自动隐藏）
+  toc: true
+  # 文末版权声明
+  license:
+    enable: true
+    name: CC BY-NC-SA 4.0
+    url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+  # 文末「相关文章」：按共同标签 / 分类排序
+  related:
+    enable: true
+    limit: 3
+
+# 本地搜索（读取 hexo-generator-search 生成的 search.xml）
+search:
+  enable: true
+  path: /search.xml
+
+# 页脚
+footer:
+  # 建站年份，显示为「© 2025 – 当前年」
+  since: 2025
+
+# 主题外观
+appearance:
+  # light / dark / auto（跟随系统）
+  default_mode: auto

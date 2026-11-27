@@ -16,4 +16,4 @@ date: 2025-02-17 12:00:00
 
 这是我的个人博客，用于记录技术学习心得和生活感悟。
 
-本站使用 [Hexo](https://hexo.io/) 构建，主题使用 [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)。
+本站使用 [Hexo](https://hexo.io/) 构建，主题是自定义的 Shiloh 主题。

@@ -1,0 +1,63 @@
+<%
+// 页脚：简介、导航、订阅与社交、版权
+const menu = theme.menu || {};
+const brand = theme.brand || {};
+const social = theme.social || {};
+const since = (theme.footer && theme.footer.since) || '';
+const year = new Date().getFullYear();
+const years = since && String(year) !== String(since) ? `${since} – ${year}` : String(year);
+%>
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <span class="footer__name"><%= brand.name || config.author %></span>
+      <% if (brand.subtitle) { %>
+      <span class="nav__sub"><%= brand.subtitle %></span>
+      <% } %>
+      <% if (brand.description) { %>
+      <p class="footer__desc"><%= brand.description %></p>
+      <% } %>
+    </div>
+
+    <div>
+      <h3>导航</h3>
+      <ul>
+        <% Object.keys(menu).forEach(function (label) { %>
+        <li><a class="footer__link" href="<%= url_for(menu[label]) %>"><%= label %></a></li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div>
+      <h3>订阅</h3>
+      <ul>
+        <% if (social.rss) { %>
+        <li>
+          <a class="footer__link" href="<%= url_for(social.rss) %>" target="_blank" rel="noopener noreferrer">
+            <%- partial('_partial/icon', { name: 'rss', size: 14 }) %>RSS
+          </a>
+        </li>
+        <% } %>
+        <% if (social.github) { %>
+        <li>
+          <a class="footer__link" href="<%= social.github %>" target="_blank" rel="noopener noreferrer">
+            <%- partial('_partial/icon', { name: 'github', size: 14 }) %>GitHub
+          </a>
+        </li>
+        <% } %>
+        <li>
+          <a class="footer__link" href="<%= url_for('/sitemap.xml') %>">
+            <%- partial('_partial/icon', { name: 'link', size: 14 }) %>站点地图
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <span>© <%= years %> <%= config.author || brand.name %></span>
+      <span>Powered by Hexo · 主题 Shiloh</span>
+    </div>
+  </div>
+</footer>

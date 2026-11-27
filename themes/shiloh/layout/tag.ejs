@@ -1,0 +1,20 @@
+<%
+// 单个标签下的文章列表
+const name = page.tag ? page.tag.name : page.title;
+// page.tag 只是个数据对象，上面没有文章列表；总数要到站点的标签数据里按名字查
+const tag = site.tags.toArray().filter(function (item) { return item.name === name; })[0];
+const total = tag ? tag.posts.length : page.posts.length;
+%>
+<section class="container section">
+  <div class="page-head reveal">
+    <div class="eyebrow">Tag</div>
+    <h1 class="h2 page-head__title"><span class="hero__accent">#</span> <%= name %></h1>
+    <p class="lead page-head__desc">这个标签下有 <%= total %> 篇文章。</p>
+  </div>
+  <div class="post-list reveal">
+    <% page.posts.each(function (post) { %>
+      <%- partial('_partial/post-row', { post: post }) %>
+    <% }) %>
+  </div>
+  <%- partial('_partial/pagination') %>
+</section>

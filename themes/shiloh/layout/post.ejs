@@ -1,0 +1,116 @@
+<%
+// 文章页：页头、正文、右侧目录、版权声明、上一批 / 下一批、相关文章
+const post = theme.post || {};
+const license = post.license || {};
+const relatedCfg = post.related || {};
+const words = typeof wordcount === 'function' ? wordcount(page.content) : 0;
+const minutes = typeof min2read === 'function' ? min2read(page.content) : 0;
+const updated = page.updated && !page.updated.isSame(page.date) ? page.updated : null;
+
+// 相关文章：共同标签记 2 分、共同分类记 1 分，只保留有交集的
+const tagNames = page.tags.toArray().map(function (tag) { return tag.name; });
+const catNames = page.categories.toArray().map(function (cat) { return cat.name; });
+let related = [];
+if (relatedCfg.enable !== false && (tagNames.length || catNames.length)) {
+  related = site.posts.toArray()
+    .filter(function (item) { return item._id !== page._id; })
+    .map(function (item) {
+      let score = 0;
+      item.tags.toArray().forEach(function (tag) { if (tagNames.indexOf(tag.name) >= 0) score += 2; });
+      item.categories.toArray().forEach(function (cat) { if (catNames.indexOf(cat.name) >= 0) score += 1; });
+      return { post: item, score: score };
+    })
+    .filter(function (item) { return item.score > 0; })
+    .sort(function (a, b) { return b.score - a.score; })
+    .slice(0, relatedCfg.limit || 3)
+    .map(function (item) { return item.post; });
+}
+%>
+<article class="article container">
+  <div class="article__grid">
+    <div class="article__main">
+      <a class="back-link" href="<%= url_for('/') %>">
+        <%- partial('_partial/icon', { name: 'arrow-left', size: 14 }) %>全部文章
+      </a>
+
+      <header class="post-head">
+        <div class="post-head__meta">
+          <time datetime="<%= date_xml(page.date) %>"><%= page.date.format('YYYY 年 M 月 D 日') %></time>
+          <span aria-hidden="true">·</span>
+          <span><%= minutes %> 分钟读完</span>
+          <% if (words) { %>
+          <span aria-hidden="true">·</span>
+          <span><%= words %> 字</span>
+          <% } %>
+          <% if (updated) { %>
+          <span aria-hidden="true">·</span>
+          <span>更新于 <%= updated.format('YYYY 年 M 月 D 日') %></span>
+          <% } %>
+        </div>
+        <h1 class="post-head__title"><%= page.title %></h1>
+        <div class="post-head__tags">
+          <% page.categories.toArray().forEach(function (cat) { %>
+          <a class="tag" href="<%= url_for(cat.path) %>">
+            <%- partial('_partial/icon', { name: 'folder', size: 12 }) %><%= cat.name %>
+          </a>
+          <% }) %>
+          <% page.tags.toArray().forEach(function (tag) { %>
+          <a class="tag" href="<%= url_for(tag.path) %>">
+            <%- partial('_partial/icon', { name: 'tag', size: 12 }) %><%= tag.name %>
+          </a>
+          <% }) %>
+        </div>
+      </header>
+
+      <div class="post-divider"></div>
+
+      <div class="post-content"><%- page.content %></div>
+
+      <% if (license.enable !== false && license.name) { %>
+      <div class="post-license">
+        本文作者：<%= config.author %>，转载请注明出处。<br>
+        本文采用 <a href="<%= license.url %>" target="_blank" rel="noopener noreferrer"><%= license.name %></a> 许可协议进行许可。
+      </div>
+      <% } %>
+
+      <% if (page.prev || page.next) { %>
+      <nav class="post-nav" aria-label="上下篇">
+        <% if (page.prev) { %>
+        <a class="post-nav__link" href="<%= url_for(page.prev.path) %>" rel="prev">
+          <div class="post-nav__label">较新一篇</div>
+          <div class="post-nav__title"><%= page.prev.title %></div>
+        </a>
+        <% } else { %>
+        <span></span>
+        <% } %>
+        <% if (page.next) { %>
+        <a class="post-nav__link post-nav__link--next" href="<%= url_for(page.next.path) %>" rel="next">
+          <div class="post-nav__label">较早一篇</div>
+          <div class="post-nav__title"><%= page.next.title %></div>
+        </a>
+        <% } %>
+      </nav>
+      <% } %>
+    </div>
+
+    <% if (post.toc !== false) { %>
+    <aside class="article__aside">
+      <div class="toc-wrap">
+        <div class="toc__title eyebrow">目录</div>
+        <%- toc(page.content, { list_number: false, min_depth: 2, max_depth: 3 }) %>
+      </div>
+    </aside>
+    <% } %>
+  </div>
+
+  <% if (related.length) { %>
+  <section class="related">
+    <h2 class="h3">相关文章</h2>
+    <div class="post-list">
+      <% related.forEach(function (item) { %>
+        <%- partial('_partial/post-row', { post: item }) %>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+</article>

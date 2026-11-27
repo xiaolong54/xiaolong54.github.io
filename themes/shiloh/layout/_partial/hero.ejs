@@ -1,0 +1,87 @@
+<%
+// 首页首屏：雾面 + 星图 + 大标题 + 数据条
+const hero = theme.hero || {};
+if (hero.enable !== false) {
+  const brand = theme.brand || {};
+  const github = (theme.social && theme.social.github) || '';
+  const headline = hero.headline || [];
+  const accent = hero.accent || '';
+
+  // 星图节点：分类与标签各出一些，再和 extra_stars 交替排开，让它们在轨道上错开
+  const base = [];
+  site.categories.forEach(function (cat) { base.push({ name: cat.name, count: cat.posts.length }); });
+  site.tags.forEach(function (tag) { base.push({ name: tag.name, count: tag.posts.length }); });
+  // 补充的节点只用来填空位：站点里已经有同名的（比如既是标签又在 extra_stars 里）就跳过，避免出现两颗同名星球
+  const taken = base.map(function (star) { return String(star.name).toLowerCase(); });
+  const extra = [];
+  (hero.extra_stars || []).forEach(function (name) {
+    const key = String(name).toLowerCase();
+    if (taken.indexOf(key) >= 0) return;
+    taken.push(key);
+    extra.push(name);
+  });
+  const stars = [];
+  base.forEach(function (star, index) {
+    stars.push(star);
+    if (extra[index]) stars.push({ name: extra[index], count: 0 });
+  });
+  extra.slice(base.length).forEach(function (name) { stars.push({ name: name, count: 0 }); });
+  const starsJson = JSON.stringify(stars).replace(/"/g, '&quot;');
+
+  const stats = [
+    { value: site.posts.length, label: '篇文章' },
+    { value: site.categories.length, label: '个分类' },
+    { value: site.tags.length, label: '个标签' }
+  ];
+  const since = theme.footer && theme.footer.since;
+  if (since) stats.push({ value: String(since), label: '建站' });
+%>
+<section class="hero grain">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__fade">
+      <div class="hero__mist"></div>
+      <% if (hero.stars !== false && stars.length) { %>
+      <canvas class="hero__canvas" data-stars="<%- starsJson %>" role="img" aria-label="分类与标签组成的星图"></canvas>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero__inner">
+      <% if (hero.eyebrow) { %>
+      <div class="eyebrow"><%= hero.eyebrow %></div>
+      <% } %>
+      <h1 class="display hero__title">
+        <% headline.forEach(function (line) { %>
+        <span><%- accent && line.indexOf(accent) >= 0
+          ? line.replace(accent, '<span class="hero__accent">' + accent + '</span>')
+          : line %></span>
+        <% }) %>
+      </h1>
+      <% if (hero.description) { %>
+      <p class="lead hero__desc"><%= hero.description %></p>
+      <% } %>
+      <div class="hero__actions">
+        <a class="btn btn--lime btn--lg" href="<%= url_for('/archives/') %>">
+          阅读文章
+          <%- partial('_partial/icon', { name: 'arrow-right', size: 16 }) %>
+        </a>
+        <% if (github) { %>
+        <a class="btn btn--outline btn--lg" href="<%= github %>" target="_blank" rel="noopener noreferrer">
+          <%- partial('_partial/icon', { name: 'github', size: 16 }) %>
+          GitHub
+        </a>
+        <% } %>
+      </div>
+      <ul class="hero__stats">
+        <% stats.forEach(function (stat) { %>
+        <li>
+          <div class="hero-stat__value"><%= stat.value %></div>
+          <div class="hero-stat__label"><%= stat.label %></div>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</section>
+<% } %>

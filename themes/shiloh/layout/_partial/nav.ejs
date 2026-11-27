@@ -1,0 +1,65 @@
+<%
+// 顶部导航：品牌、页面链接、搜索 / GitHub / 主题切换
+const menu = theme.menu || {};
+const brand = theme.brand || {};
+const github = (theme.social && theme.social.github) || '';
+const searchOn = theme.search && theme.search.enable;
+const path = '/' + (page.path || '').replace(/index\.html$/, '');
+const isActive = function (link) {
+  const target = link.replace(/\/$/, '');
+  return target === '' ? path === '/' : path === target || path.indexOf(target + '/') === 0;
+};
+%>
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="<%= url_for('/') %>" aria-label="回到首页">
+      <span class="brand-mark"><%= brand.initials || '' %></span>
+      <span class="nav__name"><%= brand.name || config.title %></span>
+      <% if (brand.subtitle) { %>
+      <span class="nav__sub"><%= brand.subtitle %></span>
+      <% } %>
+    </a>
+
+    <nav class="nav__links" aria-label="主导航">
+      <% Object.keys(menu).forEach(function (label) { %>
+      <a class="nav__link<%= isActive(menu[label]) ? ' is-active' : '' %>" href="<%= url_for(menu[label]) %>"<%- isActive(menu[label]) ? ' aria-current="page"' : '' %>><%= label %></a>
+      <% }) %>
+    </nav>
+
+    <div class="nav__actions">
+      <% if (searchOn) { %>
+      <button class="icon-btn" type="button" data-search-open aria-label="搜索" title="搜索">
+        <%- partial('_partial/icon', { name: 'search', size: 16 }) %>
+      </button>
+      <% } %>
+      <% if (github) { %>
+      <a class="icon-btn" href="<%= github %>" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <%- partial('_partial/icon', { name: 'github', size: 16 }) %>
+      </a>
+      <% } %>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深浅主题" title="切换深浅主题">
+        <span class="icon-moon"><%- partial('_partial/icon', { name: 'moon', size: 16 }) %></span>
+        <span class="icon-sun"><%- partial('_partial/icon', { name: 'sun', size: 16 }) %></span>
+      </button>
+      <% if (github) { %>
+      <a class="btn btn--lime btn--sm nav__cta" href="<%= github %>" target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+      <% } %>
+      <button class="icon-btn nav__menu-btn" type="button" data-menu-toggle aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <%- partial('_partial/icon', { name: 'menu', size: 18 }) %>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="container" aria-label="移动端导航">
+      <% Object.keys(menu).forEach(function (label) { %>
+      <a class="mobile-menu__link<%= isActive(menu[label]) ? ' is-active' : '' %>" href="<%= url_for(menu[label]) %>">
+        <span><%= label %></span>
+        <%- partial('_partial/icon', { name: 'chevron-right', size: 14 }) %>
+      </a>
+      <% }) %>
+    </nav>
+  </div>
+</header>

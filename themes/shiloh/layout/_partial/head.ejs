@@ -1,0 +1,41 @@
+<%
+// <head>：标题、描述、Open Graph、规范链接、RSS、主题防闪脚本、样式表
+const siteTitle = config.title || '';
+const pageTitle = page.title
+  ? `${page.title} · ${siteTitle}`
+  : `${siteTitle}${config.subtitle ? ' — ' + config.subtitle : ''}`;
+const pageDesc = page.description || config.description || '';
+const defaultMode = (theme.appearance && theme.appearance.default_mode) || 'auto';
+const styles = ['base', 'home', 'post', 'misc'];
+const rss = (theme.social && theme.social.rss) || '/atom.xml';
+%>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= pageTitle %></title>
+<% if (pageDesc) { %>
+<meta name="description" content="<%= pageDesc %>">
+<% } %>
+<meta name="author" content="<%= config.author || '' %>">
+<%- open_graph({ twitter_cards: true }) %>
+<!-- 规范链接要用完整地址：full_url_for 才会拼上 _config.yml 里的站点 url，url_for 只给相对路径 -->
+<link rel="canonical" href="<%= full_url_for(page.path) %>">
+<% if (typeof feed_tag === 'function') { %>
+<%- feed_tag(rss) %>
+<% } %>
+<link rel="icon" href="<%= url_for('/favicon.ico') %>">
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.className += ' js';
+    var mode = '<%= defaultMode %>';
+    var stored = null;
+    try { stored = localStorage.getItem('shiloh-theme'); } catch (e) {}
+    var theme = (stored === 'light' || stored === 'dark') ? stored
+      : (mode === 'light' || mode === 'dark') ? mode
+      : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    root.setAttribute('data-theme', theme);
+  })();
+</script>
+<% styles.forEach(function (name) { %>
+<link rel="stylesheet" href="<%= url_for('/css/' + name + '.css') %>">
+<% }) %>

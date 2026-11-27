@@ -84,7 +84,8 @@ exclude:
 ignore:
 
 # Extensions
-theme: butterfly
+## 换回原来的主题：改成 butterfly（原配置在 _config.butterfly.yml，没有动）
+theme: shiloh
 
 # Deployment
 deploy:

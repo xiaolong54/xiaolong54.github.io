@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-CN' %>" data-theme="light">
+<head>
+  <%- partial('_partial/head') %>
+</head>
+<body>
+  <%- partial('_partial/nav') %>
+  <main><%- body %></main>
+  <%- partial('_partial/footer') %>
+
+  <% if (theme.search && theme.search.enable) { %>
+  <dialog class="search-dialog" id="search-dialog" data-search-path="<%= url_for(theme.search.path || '/search.xml') %>" aria-label="站内搜索">
+    <div class="search-field">
+      <%- partial('_partial/icon', { name: 'search', size: 18 }) %>
+      <input type="search" id="search-input" placeholder="搜索文章…" autocomplete="off" aria-label="搜索关键词">
+      <span class="search-kbd">Esc</span>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+  </dialog>
+  <% } %>
+
+  <script src="<%= url_for('/js/main.js') %>" defer></script>
+  <% if (is_home() && theme.hero && theme.hero.enable !== false && theme.hero.stars !== false) { %>
+  <script src="<%= url_for('/js/stars.js') %>" defer></script>
+  <% } %>
+</body>
+</html>

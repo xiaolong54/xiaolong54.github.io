@@ -1,0 +1,20 @@
+<%
+// 单个分类下的文章列表
+const name = page.category ? page.category.name : page.title;
+// page.category 只是个数据对象，上面没有文章列表；总数要到站点的分类数据里按名字查
+const category = site.categories.toArray().filter(function (item) { return item.name === name; })[0];
+const total = category ? category.posts.length : page.posts.length;
+%>
+<section class="container section">
+  <div class="page-head reveal">
+    <div class="eyebrow">Category</div>
+    <h1 class="h2 page-head__title"><%= name %></h1>
+    <p class="lead page-head__desc">这个分类下有 <%= total %> 篇文章。</p>
+  </div>
+  <div class="post-list reveal">
+    <% page.posts.each(function (post) { %>
+      <%- partial('_partial/post-row', { post: post }) %>
+    <% }) %>
+  </div>
+  <%- partial('_partial/pagination') %>
+</section>

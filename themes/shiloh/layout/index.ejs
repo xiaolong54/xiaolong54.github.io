@@ -1,0 +1,25 @@
+<%
+// 首页：首屏 + 最新文章
+%>
+<%- partial('_partial/hero') %>
+
+<section class="container section">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow">Writing</div>
+      <h2 class="h2">最新文章</h2>
+    </div>
+    <a class="section-head__more" href="<%= url_for('/archives/') %>">
+      全部 <%= site.posts.length %> 篇
+      <%- partial('_partial/icon', { name: 'arrow-right', size: 15 }) %>
+    </a>
+  </div>
+
+  <div class="post-list reveal">
+    <% page.posts.each(function (post) { %>
+      <%- partial('_partial/post-row', { post: post }) %>
+    <% }) %>
+  </div>
+
+  <%- partial('_partial/pagination') %>
+</section>

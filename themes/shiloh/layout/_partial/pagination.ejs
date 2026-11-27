@@ -1,0 +1,18 @@
+<%
+// 分页：较新 / 第 n 页，共 m 页 / 较旧。只有一页时什么都不输出。
+// prev_link / next_link 由 hexo-pagination 提供：没有前导斜杠的相对路径，不存在时为空字符串。
+if (page.total > 1) { %>
+<nav class="pagination" aria-label="分页">
+  <% if (page.prev_link) { %>
+  <a class="btn btn--outline btn--sm" href="<%= url_for(page.prev_link) %>" rel="prev">
+    <%- partial('_partial/icon', { name: 'arrow-left', size: 14 }) %>较新
+  </a>
+  <% } %>
+  <span class="pagination__page"><%= page.current %> / <%= page.total %></span>
+  <% if (page.next_link) { %>
+  <a class="btn btn--outline btn--sm" href="<%= url_for(page.next_link) %>" rel="next">
+    较旧<%- partial('_partial/icon', { name: 'arrow-right', size: 14 }) %>
+  </a>
+  <% } %>
+</nav>
+<% } %>

@@ -1,0 +1,25 @@
+<%
+// 文章列表里的一行：日期、标题、一句话摘要、分类与标签
+const excerptSource = post.description || (post.excerpt ? strip_html(post.excerpt) : '');
+const excerpt = excerptSource ? truncate(excerptSource.replace(/\s+/g, ' ').trim(), { length: 80 }) : '';
+const category = post.categories && post.categories.length ? post.categories.first().name : '';
+const tags = post.tags ? post.tags.toArray().slice(0, 2) : [];
+%>
+<a class="post-row" href="<%= url_for(post.path) %>">
+  <span class="post-row__date"><%= post.date.format('YYYY.MM.DD') %></span>
+  <span class="post-row__main">
+    <span class="post-row__title"><%= post.title || '(无标题)' %></span>
+    <% if (excerpt) { %>
+    <span class="post-row__excerpt"><%= excerpt %></span>
+    <% } %>
+  </span>
+  <span class="post-row__tags">
+    <% if (category) { %>
+    <span><%= category %></span>
+    <% } %>
+    <% tags.forEach(function (tag) { %>
+    <span><%= tag.name %></span>
+    <% }) %>
+  </span>
+  <span class="post-row__arrow"><%- partial('_partial/icon', { name: 'arrow-right', size: 15 }) %></span>
+</a>
