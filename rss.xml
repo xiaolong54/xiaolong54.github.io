@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title><![CDATA[石小龙 — Simplify complex systems.]]></title>
+    <link>https://xiaolong54.github.io</link>
+    <description><![CDATA[做那些装上就能用、不联网也能跑的软件。]]></description>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://xiaolong54.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[把本地优先应用的数据同步延迟压到 50ms 以内]]></title>
+      <link>https://xiaolong54.github.io/writing/local-first-sync-under-50ms</link>
+      <guid isPermaLink="true">https://xiaolong54.github.io/writing/local-first-sync-under-50ms</guid>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Orbit Notes 2.0 同步引擎的改造记录：三处改动，把两台设备之间的同步从 400ms 降到了 50ms 以内。]]></description>
+      <category><![CDATA[本地优先, 架构, Rust]]></category>
+    </item>
+    <item>
+      <title><![CDATA[给独立开发者的一套轻量发布流程]]></title>
+      <link>https://xiaolong54.github.io/writing/solo-release-pipeline</link>
+      <guid isPermaLink="true">https://xiaolong54.github.io/writing/solo-release-pipeline</guid>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[一个人维护五个项目，发布这件事必须几乎不花时间。分享我用了两年、总共不到 300 行配置的发布流水线。]]></description>
+      <category><![CDATA[工程实践, DevOps]]></category>
+    </item>
+    <item>
+      <title><![CDATA[多模型网关的路由策略：从轮询到成本感知]]></title>
+      <link>https://xiaolong54.github.io/writing/cost-aware-routing</link>
+      <guid isPermaLink="true">https://xiaolong54.github.io/writing/cost-aware-routing</guid>
+      <pubDate>Sun, 05 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[RouteForge 路由模块的设计笔记：轮询、加权、延迟优先各有问题，最后落地的是一套按成本与质量估算打分的策略。]]></description>
+      <category><![CDATA[AI, 架构]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Next.js App Router 迁移踩坑记录]]></title>
+      <link>https://xiaolong54.github.io/writing/app-router-migration-notes</link>
+      <guid isPermaLink="true">https://xiaolong54.github.io/writing/app-router-migration-notes</guid>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[把一个两万行的 Pages Router 项目迁到 App Router，用了一周。这里是值得提前知道的七件事。]]></description>
+      <category><![CDATA[前端, Next.js]]></category>
+    </item>
+    <item>
+      <title><![CDATA[为什么我又回到了自托管]]></title>
+      <link>https://xiaolong54.github.io/writing/back-to-self-hosting</link>
+      <guid isPermaLink="true">https://xiaolong54.github.io/writing/back-to-self-hosting</guid>
+      <pubDate>Tue, 02 Dec 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[从全托管的 Serverless 回到一台自己的小服务器，账单少了、心智负担也轻了。记录这次来回的理由。]]></description>
+      <category><![CDATA[工程实践, 基础设施]]></category>
+    </item>
+  </channel>
+</rss>
